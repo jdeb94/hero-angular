@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">List Of Heroes</div>
+    <div class="col-md-7" *ngFor="let hero of heroes">
+      <div class="border margin10px" #{{hero._id}}>
+        <span class="col-md-7">
+          <div class="col-md-12">
+            <label class="col-md-5">Name:</label>
+            <span class="col-md-7">{{hero.heroName}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Height:</label>
+            <span class="col-md-7">{{hero.heroHeight}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Type:</label>
+            <span class="col-md-7">{{hero.heroType}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Can Fly:</label>
+            <span class="col-md-7">{{hero.canFly}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Fan Following:</label>
+            <span class="col-md-7">{{hero.fanFollowing}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Super Power:</label>
+            <span class="col-md-7">{{hero.superPower}}</span>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-5">Fights Won:</label>
+            <span class="col-md-7">{{hero.fightsWon}}</span>
+          </div>
+        </span>
+        <span class="col-md-5">
+          <button class="col-md-3 margin10px btn btn-outline-primary" (click)="updateHero(hero)">Update</button>
+          <button class="col-md-3 margin10px btn btn-outline-danger" (click)="deleteHero(hero._id)">Delete</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

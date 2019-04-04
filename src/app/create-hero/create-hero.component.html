@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10">
+      <form [formGroup]=createHero (ngSubmit)="onSubmit()">
+        <label for="heroName">Name:</label>
+        <input type="text" id="heroName" class="form-control" formControlName="heroName">
+
+        <label for="heroHeight">Height:</label>
+        <input type="number" id="heroHeight" class="form-control" formControlName="heroHeight">
+
+
+
+        <label for="fightsWon">Fights Won:</label>
+        <input type="number" id="fightsWon" class="form-control" formControlName="fightsWon">
+
+        <label for="fanFollowing">Fan Following:</label>
+        <input type="number" id="fanFollowing" class="form-control" formControlName="fanFollowing">
+
+        <label for="canFly">Can Fly:
+          <input formControlName="canFly" type="radio" value=false><span> No </span>
+          <input formControlName="canFly" type="radio" value=true><span> Yes </span>
+        </label>
+        <div>
+          <label for="heroType">Hero Type:
+            <input formControlName="heroType" type="radio" value=false><span> Female </span>
+            <input formControlName="heroType" type="radio" value=true><span>Male</span>
+          </label>
+        </div>
+
+        <div>
+          <label for="heroType">Super Powers:
+            <input formControlName="superPower" type="text">
+          </label>
+        </div>
+
+
+        <div>
+          <button type="submit" class="btn btn-primary col-md-2 margin10px">Add</button>
+          <button type="reset" class="btn btn-primary col-md-2 margin10px">Clear</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
