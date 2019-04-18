@@ -17,8 +17,6 @@ steps:
 
 - script: |
     npm install
-    npm install -g eslint
-    npm run lint
   displayName: 'npm install and linting'
 
 - task: CopyFiles@2
