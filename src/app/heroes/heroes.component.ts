@@ -10,26 +10,33 @@ import { Router } from '@angular/router';
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
-  constructor(private _heroesService: HeroesService, private router: Router) { }
+  constructor(private heroesService: HeroesService, private router: Router) {}
   ngOnInit() {
     this.getHeroes();
   }
   getHeroes() {
-    this._heroesService.getHeroes()
-      .subscribe(
-        response => { this.heroes = <Hero[]>(response); console.log(this.heroes) },
-        error => console.log(error)
-      );
+    this.heroesService.getHeroes().subscribe(
+      response => {
+        this.heroes = response as Hero[];
+        console.log(this.heroes);
+      },
+      error => console.log(error)
+    );
   }
   deleteHero(id) {
-    this._heroesService.deleteHeroes(id)
-      .subscribe(
-        response => { console.log(response); this.router.navigate(['/heroes']); },
-        error => { console.log(error); this.router.navigate(['/heroes']); }
-      );
+    this.heroesService.deleteHeroes(id).subscribe(
+      response => {
+        console.log(response);
+        this.getHeroes();
+        // this.router.navigate(['/heroes']);
+      },
+      error => {
+        this.getHeroes();
+        // this.router.navigate(['/heroes']);
+      }
+    );
   }
   updateHero(hero) {
-    this.router.navigate(['/new']);
+    this.heroesService.openUpdateFrom(hero);
   }
-
 }

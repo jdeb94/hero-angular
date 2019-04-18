@@ -10,39 +10,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-hero.component.scss']
 })
 export class CreateHeroComponent implements OnInit {
-
   createHero: FormGroup;
-  constructor(private _heroesService:HeroesService,private router: Router) { }
+  id: string;
+  constructor(private heroesService: HeroesService, private router: Router) {}
 
   ngOnInit() {
-    this.createHero = new FormGroup({
-      "heroName": new FormControl(null),
-      "heroHeight": new FormControl(null),
-      "heroType": new FormControl(null),
-      "canFly": new FormControl(null),
-      "fanFollowing": new FormControl(null),
-      "superPower": new FormControl(null),
-      "fightsWon": new FormControl(null)
-    });
+    if (this.heroesService.data === null) {
+      this.createHero = new FormGroup({
+        heroName: new FormControl(null),
+        heroHeight: new FormControl(null),
+        heroType: new FormControl(null),
+        canFly: new FormControl(null),
+        fanFollowing: new FormControl(null),
+        superPower: new FormControl(null),
+        fightsWon: new FormControl(null)
+      });
+    } else {
+      this.createHero = new FormGroup({
+        heroName: new FormControl(this.heroesService.data.heroName),
+        heroHeight: new FormControl(this.heroesService.data.heroHeight),
+        heroType: new FormControl(this.heroesService.data.heroType),
+        canFly: new FormControl(this.heroesService.data.canFly),
+        fanFollowing: new FormControl(this.heroesService.data.fanFollowing),
+        superPower: new FormControl(this.heroesService.data.superPower),
+        fightsWon: new FormControl(this.heroesService.data.fightsWon)
+      });
+      this.id = this.heroesService.data._id;
+    }
   }
-  onSubmit(){
-    //console.log(this.createHero.value);
-    //console.log(this.createHero.value.superPower.split([","]));
-    this.createHero.value.superPower = this.createHero.value.superPower.split([","]);
-    //console.log(this.createHero.value.superPower);
-    //return;
-    this._heroesService.saveHeroes(this.createHero.value).subscribe(
-      response=>{
-         console.log(response);
-         console.log(11);
-        this.router.navigate(['/heroes']);
-      },
-      error=>{
-        console.log(error);
-        this.router.navigate(['/heroes']);
-      }
-
-    )
+  onSubmit() {
+    if (this.id === undefined) {
+      this.createHero.value.superPower = this.createHero.value.superPower.split(
+        [',']
+      );
+      this.heroesService.saveHeroes(this.createHero.value).subscribe(
+        response => {
+          this.router.navigate(['/heroes']);
+        },
+        error => {
+          this.router.navigate(['/heroes']);
+        }
+      );
+    } else {
+      this.heroesService.updateHeroes(this.id, this.createHero.value).subscribe(
+        response => {
+          this.router.navigate(['/heroes']);
+        },
+        error => {
+          this.router.navigate(['/heroes']);
+        }
+      );
+    }
   }
-
 }
